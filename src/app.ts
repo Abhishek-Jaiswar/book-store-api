@@ -4,6 +4,8 @@ import userRouter from './user/user.routes'
 
 const app = express()
 
+app.use(express.json())
+
 // routes
 
 app.use("/api/v1/users", userRouter)
