@@ -14,21 +14,29 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
     }
 
     // Database
-    const existingUser = await User.findOne({ email })
-    if (existingUser) {
-        const error = createHttpError(400, "User already exists")
-        return next(error)
+    try {
+        const existingUser = await User.findOne({ email })
+
+        if (existingUser) {
+            const error = createHttpError(400, "User already exists")
+            return next(error)
+        }
+    } catch (error) {
+        const errorStatus = createHttpError(400, "All feilds are required")
+        return next(errorStatus)
     }
 
     //hashing password
     const hashedPasswrod = await bcrypt.hash(password, 10)
 
     //process
+
     const newUser = await User.create({
         name,
         email,
         password: hashedPasswrod
     })
+
 
     //token
 
