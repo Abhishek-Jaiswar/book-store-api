@@ -12,7 +12,7 @@ const connectToDb = async () => {
             
         })
 
-        await mongoose.connect(`${process.env.MONGODB_URI!}/bookstore`)
+        await mongoose.connect(`${process.env.MONGODB_URI!}bookstore`)
 
         
     } catch (error) {
